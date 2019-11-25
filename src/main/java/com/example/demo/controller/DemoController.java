@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.service.TopUp;
-
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 public class DemoController {
@@ -15,7 +18,7 @@ public class DemoController {
     }
     
     @RequestMapping("/topUp")
-    public String topUp() {
+    public void topUp() {
         //Show account balance
         //Enter a value
         //Add value to account
@@ -25,7 +28,17 @@ public class DemoController {
         float value = TopUp.getValueForTopUp();
         accountBalance = TopUp.topUpAccountWithValue(accountBalance, value);
         TopUp.displayAccount(accountBalance);
-        return "";
     }
 
+    @GetMapping("/topUpGetValue")
+    public static String topUpGetValue(Model model) {
+        model.addAttribute("value", new TopUp());
+        return "value";
+    }
+
+    @PostMapping("/topUpAccountBalance")
+    public static String topUpAccountBalance(@ModelAttribute TopUp topUp) {
+        return "accountBalance";
+    }
+    
 }
