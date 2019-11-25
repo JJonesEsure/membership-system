@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.service.TopUp;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 public class DemoController {
 
-    @RequestMapping("/helloWorld")
+    @RequestMapping("/home")
     public String helloWorld() {
         return "Hello World!";
     }
@@ -19,10 +21,10 @@ public class DemoController {
         //Add value to account
         //Show account balance
         float accountBalance = 0;
-//        displayAccount(accountBalance);
-//        float value = getValueForTopUp();
-//        topUpAccountWithValue(accountBalance, value);
-//        displayAccount(accountBalance);
+        TopUp.displayAccount(accountBalance);
+        float value = TopUp.getValueForTopUp();
+        accountBalance = TopUp.topUpAccountWithValue(accountBalance, value);
+        TopUp.displayAccount(accountBalance);
         return "";
     }
 
