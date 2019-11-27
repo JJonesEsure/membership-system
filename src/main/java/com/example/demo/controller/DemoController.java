@@ -23,21 +23,19 @@ public class DemoController {
         //Enter a value
         //Add value to account
         //Show account balance
+        TopUp topUp = new TopUp();
         float accountBalance = 0;
-        TopUp.displayAccount(accountBalance);
-        float value = TopUp.getValueForTopUp();
-        accountBalance = TopUp.topUpAccountWithValue(accountBalance, value);
-        TopUp.displayAccount(accountBalance);
+        topUp.displayAccount(accountBalance);
+        float value = topUp.getValueForTopUp();
+        accountBalance = topUp.topUpAccountWithValue(accountBalance, value);
+        topUp.displayAccount(accountBalance);
     }
 
-    @GetMapping("/topUpGetValue")
-    public static String topUpGetValue(Model model) {
-        model.addAttribute("value", new TopUp());
+    public static String topUpGetValue() {
         return "value";
     }
 
-    @PostMapping("/topUpAccountBalance")
-    public static String topUpAccountBalance(@ModelAttribute TopUp topUp) {
+    public static String topUpAccountBalance() {
         return "accountBalance";
     }
     
