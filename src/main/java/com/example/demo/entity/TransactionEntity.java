@@ -7,8 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
 
 @Entity
+@Data
+@Table(name="transaction")
 public class TransactionEntity {
   
     @Id
@@ -19,12 +24,12 @@ public class TransactionEntity {
     private long cardNumberId;
  
     @Column(nullable = false)
-    private String price;
+    private float price;
     
     @Column(nullable = false)
     private boolean isToppingUp;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String item;
     
     @Column(nullable = false)

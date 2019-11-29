@@ -1,34 +1,37 @@
 package com.example.demo.controller;
 
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import java.math.BigDecimal;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.service.TopUp;
+import com.example.demo.model.TopUp;
+import com.example.demo.service.TopUpService;
 
 @RestController
 public class DemoController {
 
+    private TopUpService topUpService;
+    @Autowired
+    public DemoController(TopUpService topUpService) {
+      this.topUpService = topUpService;
+    }
+    
     @RequestMapping("/home")
     public String helloWorld() {
         return "Hello World!";
     }
     
-    @RequestMapping("/topUp")
-    public void topUp() {
+    @PostMapping(path = "/topUp", consumes = "application/json", produces = "application/json")
+    public BigDecimal topUp(@RequestBody TopUp topUp) {
         //Show account balance
         //Enter a value
         //Add value to account
         //Show account balance
-        TopUp topUp = new TopUp();
-        float accountBalance = 0;
-        topUp.displayAccount(accountBalance);
-        float value = topUp.getValueForTopUp();
-        accountBalance = topUp.topUpAccountWithValue(accountBalance, value);
-        topUp.displayAccount(accountBalance);
+        return topUpService.topUpAccount(topUp);
     }
 
     public static String topUpGetValue() {
