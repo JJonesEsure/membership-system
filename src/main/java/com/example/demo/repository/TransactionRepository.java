@@ -1,11 +1,10 @@
 package com.example.demo.repository;
 
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.entity.TransactionEntity;
 
-public interface TransactionRepository
+public interface TransactionRepository extends JpaRepository<TransactionEntity, Long>
 {
-    TransactionEntity save(TransactionEntity transactionEntity);
-    Optional<TransactionEntity> getById(Long id);
+    
 }

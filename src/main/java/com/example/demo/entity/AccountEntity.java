@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -7,8 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import lombok.Data;
+
+/**
+ * This is the account entity,
+ * it is the structure of the data
+ * and it also contains the functions to
+ * add and subtract form the balance.
+ * @author Jacob Jones
+ *
+ */
 @Entity
+@Data
+@Table(name="account")
 public class AccountEntity {
   
     @Id
@@ -21,18 +35,32 @@ public class AccountEntity {
     @Column(nullable = false, unique = true)
     private long cardNumberId;
  
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDateTime creationDate;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private boolean isActive;
     
-    @Column(nullable = false)
-    private float balance;
+    @Column(nullable = true)
+    private BigDecimal balance;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String restrictions;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDateTime lastUsed;
+    
+    public AccountEntity addBalance(BigDecimal price) {
+        balance = balance == null
+             ? price
+             : balance.add(price);
+        return this;
+    }
+    
+    public AccountEntity subtractBalance(BigDecimal price) {
+        balance = balance == null
+             ? (BigDecimal.ZERO.subtract(price))
+             : balance.subtract(price);
+        return this;
+    }
 }

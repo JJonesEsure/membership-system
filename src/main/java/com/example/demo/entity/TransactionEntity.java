@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -11,6 +12,12 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
+/**
+ * This is the account entity,
+ * it is the structure of the data.
+ * @author Jacob Jones
+ *
+ */
 @Entity
 @Data
 @Table(name="transaction")
@@ -19,12 +26,12 @@ public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long transactionId;
- 
-    @Column(nullable = false, unique = true)
-    private long cardNumberId;
+    
+    @Column(nullable = false)
+    private long accountId;
  
     @Column(nullable = false)
-    private float price;
+    private BigDecimal price;
     
     @Column(nullable = false)
     private boolean isToppingUp;
@@ -35,6 +42,6 @@ public class TransactionEntity {
     @Column(nullable = false)
     private LocalDateTime transactionDate;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String location;
 }
