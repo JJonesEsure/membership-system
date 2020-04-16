@@ -42,7 +42,7 @@ public class AccountEntity {
     private boolean isActive;
     
     @Column(nullable = true)
-    private BigDecimal balance;
+    private BigDecimal balance=BigDecimal.ZERO;
     
     @Column(nullable = true)
     private String restrictions;
@@ -51,16 +51,12 @@ public class AccountEntity {
     private LocalDateTime lastUsed;
     
     public AccountEntity addBalance(BigDecimal price) {
-        balance = balance == null
-             ? price
-             : balance.add(price);
+        balance.add(price);
         return this;
     }
     
     public AccountEntity subtractBalance(BigDecimal price) {
-        balance = balance == null
-             ? (BigDecimal.ZERO.subtract(price))
-             : balance.subtract(price);
+        balance.subtract(price);
         return this;
     }
 }

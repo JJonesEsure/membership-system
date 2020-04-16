@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
@@ -45,7 +47,7 @@ public class RegisterServiceTest
         personEntity.setPersonId(1L);
         Register register = new Register();
         when(personRepository.findById(1L)).thenReturn(Optional.empty());
-        RegisterService.registerForAccount(register);
+        registerService.registerForAccount(register);
     }
     
     @Test

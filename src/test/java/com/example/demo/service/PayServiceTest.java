@@ -22,7 +22,6 @@ import com.example.demo.entity.TransactionEntity;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.TransactionRepository;
 
-@Service
 public class PayServiceTest
 {
     @Mock
