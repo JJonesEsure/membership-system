@@ -1,12 +1,11 @@
 package com.example.demo.security;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
