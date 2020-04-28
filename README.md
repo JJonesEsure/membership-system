@@ -1,6 +1,7 @@
-# api-jva-synopticproject-demo
+# api-jva-membership-system
 API for the membership system
-Currently has no functionality, working on top-up
+Top Up and Pay with Bows employee card, if one doesn't exist the user can register.
+Account requires a 4 digit pin after card is presented to access the top up and pay.
 
 # Installation
 Run maven install

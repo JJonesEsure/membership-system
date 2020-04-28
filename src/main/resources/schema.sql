@@ -26,7 +26,8 @@ CREATE TABLE TRANSACTION (
 );
 
 CREATE TABLE PERSON (
-  perso_id BIGINT AUTO_INCREMENT  PRIMARY KEY,
+  person_id BIGINT AUTO_INCREMENT  PRIMARY KEY,
+  user_name VARCHAR(250) NOT NULL,
   first_name VARCHAR(250),
   last_name VARCHAR(250),
   date_of_birth DATETIME,
@@ -34,7 +35,8 @@ CREATE TABLE PERSON (
   email VARCHAR(250),
   sex VARCHAR(250),
   marital_status VARCHAR(250),
-  occupation VARCHAR(250)
+  occupation VARCHAR(250),
+  password VARCHAR(250)
 );
 
 CREATE TABLE CARD (
