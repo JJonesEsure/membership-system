@@ -1,10 +1,7 @@
 package com.membership.system.controller;
 
-import javax.naming.AuthenticationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +26,7 @@ public class AuthenticationController
     @PostMapping("/signin")
     public ResponseEntity<AuthenticatedUser>
     signin(@RequestBody AuthenticationRequest data) {
-        try {
-            return ok(personService.signin(data));
-        } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied");
-        }
+    return ResponseEntity.ok(personService.signin(data)); 
     }
     
     /**
@@ -47,6 +40,6 @@ public class AuthenticationController
         @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
         public ResponseEntity<AuthenticatedUser>
         register(@RequestBody Register register){
-            return ok(personService.registerForAccount(register));
+        return ResponseEntity.ok(personService.registerForAccount(register));
     }
 }

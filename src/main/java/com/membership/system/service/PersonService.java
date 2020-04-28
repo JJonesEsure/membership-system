@@ -43,13 +43,13 @@ public class PersonService
      * @param register
      * @return personId
      */
-    public AuthenticatedUserFactory registerForAccount(Register register) {
+    public AuthenticatedUser registerForAccount(Register register) {
         if (personRepository.findByUsername(register.getUserName()).isPresent())
         {
             throw new UserAlreadyExistsException("Supplied user already exists");
         } else {
             final PersonEntity personEntity = setUpPersonEntity(register);
-            return authenticatedUserFactory.create(person);
+            return authenticatedUserFactory.create(personEntity);
         }
     }
     
@@ -71,7 +71,7 @@ public class PersonService
      * @param
      * @return personEntity
      */
-    private PersonEntity setUPersonEntity(Register register)
+    private PersonEntity setUpPersonEntity(Register register)
     {
         PersonEntity personEntity = new PersonEntity();
         personEntity.setUsername(register.getUserName());
