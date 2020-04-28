@@ -12,5 +12,5 @@ public class JwtProperties
 {
     private String secretKey = "secret";
     
-    private long validityInMs = 3600000;
+    private long validityInMs = 300000;
 }

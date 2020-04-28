@@ -15,8 +15,6 @@ import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.stereotype.Service;
-
 import com.membership.system.entity.AccountEntity;
 import com.membership.system.entity.TransactionEntity;
 import com.membership.system.repository.AccountRepository;
