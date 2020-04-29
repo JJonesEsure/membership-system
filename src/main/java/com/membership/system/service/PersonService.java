@@ -76,6 +76,8 @@ public class PersonService
         PersonEntity personEntity = new PersonEntity();
         personEntity.setUsername(register.getUserName());
         personEntity.setPassword(passwordEncoder.encode(register.getPassword()));
+        personEntity.setFirstName(register.getFirstName());
+        personEntity.setLastName(register.getLastName());
         personEntity.setDateOfBirth(register.getDateOfBirth());
         personEntity.setTitle(register.getTitle());
         personEntity.setEmail(register.getEmail());

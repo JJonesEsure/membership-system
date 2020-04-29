@@ -17,7 +17,6 @@ public class AuthenticatedUserFactory {
         this.jwtTokenProvider = jwtTokenProvider;
     }
     
-    @Autowired
     public AuthenticatedUser create(final PersonEntity person) {
         return new AuthenticatedUser()
                 .setUserName(person.getUsername())
