@@ -19,7 +19,6 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import com.membership.system.security.JwtSecurityConfigurer;
 import com.membership.system.security.JwtTokenProvider;
 
-@SuppressWarnings("deprecation")
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
