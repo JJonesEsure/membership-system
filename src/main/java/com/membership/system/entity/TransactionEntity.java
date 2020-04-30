@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -27,6 +29,7 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long transactionId;
     
+    @JoinTable(name = "account", foreignKey = @ForeignKey(name = "account_id"))
     @Column(nullable = false)
     private long accountId;
  

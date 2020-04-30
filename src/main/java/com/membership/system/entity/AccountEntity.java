@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ForeignKey;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -29,9 +31,11 @@ public class AccountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long accountId;
  
+    @JoinTable(name = "person", foreignKey = @ForeignKey(name = "person_id"))
     @Column(nullable = false, unique = true)
     private long personId;
     
+    @JoinTable(name = "card", foreignKey = @ForeignKey(name = "card_number_id"))
     @Column(nullable = false, unique = true)
     private long cardNumberId;
  

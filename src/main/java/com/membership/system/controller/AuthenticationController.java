@@ -26,7 +26,7 @@ public class AuthenticationController
     @PostMapping("/signin")
     public ResponseEntity<AuthenticatedUser>
     signin(@RequestBody AuthenticationRequest data) {
-    return ResponseEntity.ok(personService.signin(data)); 
+        return ResponseEntity.ok(personService.signin(data)); 
     }
     
     /**
@@ -40,6 +40,6 @@ public class AuthenticationController
         @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
         public ResponseEntity<AuthenticatedUser>
         register(@RequestBody Register register){
-        return ResponseEntity.ok(personService.registerForAccount(register));
+            return ResponseEntity.ok(personService.registerForAccount(register));
     }
 }
