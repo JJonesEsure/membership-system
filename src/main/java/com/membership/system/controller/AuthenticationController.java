@@ -23,7 +23,7 @@ public class AuthenticationController
         this.personService = personService;
     }
     
-    @PostMapping("/signin")
+    @PostMapping(path = "/signIn", consumes = "application/json")
     public ResponseEntity<AuthenticatedUser>
     signin(@RequestBody AuthenticationRequest data) {
         return ResponseEntity.ok(personService.signin(data)); 
