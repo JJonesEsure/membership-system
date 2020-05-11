@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ForeignKey;
 import javax.persistence.Table;
 
+import com.membership.system.exceptions.InsufficientFundsException;
+
 import lombok.Data;
 
 /**
@@ -61,6 +63,10 @@ public class AccountEntity {
     
     public AccountEntity subtractBalance(BigDecimal price) {
         balance = balance.subtract(price);
+        if (balance.compareTo(BigDecimal.ZERO)<0) {
+            balance = balance.add(price);
+            throw new InsufficientFundsException("Insufficient Funds");
+        }
         return this;
     }
 }

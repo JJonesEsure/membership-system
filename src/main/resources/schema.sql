@@ -27,16 +27,19 @@ CREATE TABLE TRANSACTION (
 
 CREATE TABLE PERSON (
   person_id BIGINT AUTO_INCREMENT  PRIMARY KEY,
+  unique_employee_id BIGINT NOT NULL,
   user_name VARCHAR(250) NOT NULL,
-  first_name VARCHAR(250),
+  first_name VARCHAR(250) NOT NULL,
   last_name VARCHAR(250),
   date_of_birth DATETIME,
   title VARCHAR(250),
-  email VARCHAR(250),
+  email VARCHAR(250) NOT NULL,
+  mobile_number VARCHAR(250) NOT NULL,
   sex VARCHAR(250),
   marital_status VARCHAR(250),
   occupation VARCHAR(250),
-  password VARCHAR(250)
+  password VARCHAR(250),
+  credentials_non_expired BOOLEAN
 );
 
 CREATE TABLE CARD (
@@ -44,3 +47,4 @@ CREATE TABLE CARD (
   experation_date DATETIME,
   issue_date DATE
 );
+

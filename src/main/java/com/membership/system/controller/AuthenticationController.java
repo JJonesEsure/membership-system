@@ -1,7 +1,10 @@
 package com.membership.system.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,7 @@ import com.membership.system.service.PersonService;
 
 @RestController
 @RequestMapping("/auth")
+@Validated
 public class AuthenticationController
 {
     private final PersonService personService;
@@ -23,9 +27,16 @@ public class AuthenticationController
         this.personService = personService;
     }
     
+    /**
+     * The sign-in endpoint, runs a post which accepts and returns json.
+     * Takes the persons username and pin, and finds the account,
+     * checks the details and will return a JWT token.
+     * @param username, pin
+     * @return username, token
+     */
     @PostMapping(path = "/signIn", consumes = "application/json")
     public ResponseEntity<AuthenticatedUser>
-    signin(@RequestBody AuthenticationRequest data) {
+    signin(@RequestBody @Valid AuthenticationRequest data) {
         return ResponseEntity.ok(personService.signin(data)); 
     }
     
@@ -39,7 +50,7 @@ public class AuthenticationController
     //User specifies details which are then added to account, returns the new personId.
         @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
         public ResponseEntity<AuthenticatedUser>
-        register(@RequestBody Register register){
+        register(@RequestBody @Valid Register register){
             return ResponseEntity.ok(personService.registerForAccount(register));
     }
 }

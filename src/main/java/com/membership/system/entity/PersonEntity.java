@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -44,6 +45,9 @@ public class PersonEntity implements UserDetails {
     private long personId;
     
     @Column(nullable = false)
+    private long uniqueEmployeeId;
+    
+    @Column(nullable = false)
     private String firstName;
     
     @Column(nullable = false)
@@ -55,8 +59,14 @@ public class PersonEntity implements UserDetails {
     @Column(nullable = true)
     private String title;
     
-    @Column(nullable = true)
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."+"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"+"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+                 message="{invalid.email}")
+    @Column(nullable = false)
     private String email;
+    
+    @Column(nullable = false)
+    @Pattern(regexp="^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?$", message="{invalid.phonenumber}")
+    private String mobileNumber;
     
     @Column(nullable = true)
     private String sex;
@@ -70,8 +80,11 @@ public class PersonEntity implements UserDetails {
     @Column(nullable = false, name = "user_name")
     private String username;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
+    
+    @Column(nullable = false)
+    private Boolean credentialsNonExpired;
     
     @Override
     public boolean isAccountNonExpired() {
@@ -85,7 +98,7 @@ public class PersonEntity implements UserDetails {
     
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return credentialsNonExpired;
     }
     
     @Override

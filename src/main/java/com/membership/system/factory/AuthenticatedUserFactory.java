@@ -20,6 +20,13 @@ public class AuthenticatedUserFactory {
     public AuthenticatedUser create(final PersonEntity person) {
         return new AuthenticatedUser()
                 .setUserName(person.getUsername())
-                .setToken(jwtTokenProvider.createToken(person.getUsername(), person.getRoles()));
+                .setToken(jwtTokenProvider.createToken(person.getUsername(), person.getRoles()))
+                .welcomeMessage();
+    }
+    
+    public AuthenticatedUser logOut(final PersonEntity person) {
+        return new AuthenticatedUser()
+                .setUserName(person.getUsername())
+                .goodbyeMessage();
     }
 }

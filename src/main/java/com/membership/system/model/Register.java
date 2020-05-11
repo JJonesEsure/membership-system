@@ -2,6 +2,8 @@ package com.membership.system.model;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Pattern;
+
 import lombok.Data;
 
 /**
@@ -14,14 +16,18 @@ import lombok.Data;
 @Data
 public class Register
 {
+    long uniqueEmployeeId;
     String firstName;
     String lastName;
     LocalDateTime dateOfBirth;
     String title;
     String email;
+    String mobileNumber;
     String sex;
     String maritalStatus;
     String occupation;
-    String userName;
-    String password;
+    @Pattern(regexp="^[a-zA-Z0-9]{16}$")
+    String cardId;
+    @Pattern(regexp = "^[0-9]{4}$")
+    String pin;
 }

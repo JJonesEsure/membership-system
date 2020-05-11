@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import com.membership.system.entity.AccountEntity;
 import com.membership.system.entity.TransactionEntity;
+import com.membership.system.exceptions.InsufficientFundsException;
 import com.membership.system.repository.AccountRepository;
 import com.membership.system.repository.TransactionRepository;
 import com.membership.system.service.PayService;
@@ -48,7 +49,7 @@ public class PayServiceTest
     }
     
     @Test
-    public void topUpAccountSuccess() {
+    public void PayFromAccountSuccess() {
         AccountEntity accountEntity = new AccountEntity();
         accountEntity.setAccountId(1L);
         accountEntity.setBalance(BigDecimal.TEN);
@@ -73,6 +74,7 @@ public class PayServiceTest
     
     @Test
     public void PayFromAccountWhenBalanceIsNull() {
+        expectedException.expect(InsufficientFundsException.class);
         AccountEntity accountEntity = new AccountEntity();
         accountEntity.setAccountId(1L);
         TransactionEntity transactionEntity = new TransactionEntity();
@@ -81,6 +83,6 @@ public class PayServiceTest
         when(accountRepository.findById(1L)).thenReturn(Optional.of(accountEntity));
         BigDecimal balance = payService.payFromAccount(transactionEntity);
         verify(transactionRepository).save(transactionEntity);
-        assertThat(balance).isEqualTo("-10");
+        assertThat(balance).isEqualTo("0");
     }
 }

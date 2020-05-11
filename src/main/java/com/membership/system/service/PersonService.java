@@ -44,7 +44,7 @@ public class PersonService
      * @return personId
      */
     public AuthenticatedUser registerForAccount(Register register) {
-        if (personRepository.findByUsername(register.getUserName()).isPresent())
+        if (personRepository.findByUsername(register.getCardId()).isPresent())
         {
             throw new UserAlreadyExistsException("Supplied user already exists");
         } else {
@@ -53,15 +53,31 @@ public class PersonService
         }
     }
     
+    /**
+     * Signs a person into their account
+     * based on the username and pin of the person.
+     * @param usename, pin
+     * @return username, pin
+     */
     public AuthenticatedUser signin(final AuthenticationRequest data) {
         try {
-            final String username = data.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
+            final String username = data.getCardId();
             final PersonEntity person = personRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found"));
-            return authenticatedUserFactory.create(person);
+            if (person.isCredentialsNonExpired()) {
+                person.setCredentialsNonExpired(false);
+                personRepository.save(person);
+                return authenticatedUserFactory.logOut(person);
+            }
+            else {
+                person.setCredentialsNonExpired(true);
+                personRepository.save(person);
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPin()));
+                return authenticatedUserFactory.create(person);
+            }
+            
             
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied");
+            throw new BadCredentialsException("Invalid username/password supplied", e);
         }
     }
     
@@ -74,16 +90,19 @@ public class PersonService
     private PersonEntity setUpPersonEntity(Register register)
     {
         PersonEntity personEntity = new PersonEntity();
-        personEntity.setUsername(register.getUserName());
-        personEntity.setPassword(passwordEncoder.encode(register.getPassword()));
+        personEntity.setUniqueEmployeeId(register.getUniqueEmployeeId());
+        personEntity.setUsername(register.getCardId());
+        personEntity.setPassword(passwordEncoder.encode(register.getPin()));
         personEntity.setFirstName(register.getFirstName());
         personEntity.setLastName(register.getLastName());
         personEntity.setDateOfBirth(register.getDateOfBirth());
         personEntity.setTitle(register.getTitle());
         personEntity.setEmail(register.getEmail());
+        personEntity.setMobileNumber(register.getMobileNumber());
         personEntity.setSex(register.getSex());
         personEntity.setMaritalStatus(register.getMaritalStatus());
         personEntity.setOccupation(register.getOccupation());
+        personEntity.setCredentialsNonExpired(true);
         personRepository.saveAndFlush(personEntity);
         return personEntity;
     }

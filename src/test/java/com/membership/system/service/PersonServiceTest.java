@@ -59,7 +59,7 @@ public class PersonServiceTest
         PersonEntity personEntity= new PersonEntity();
         personEntity.setPersonId(1L);
         Register register = new Register();
-        register.setUserName("jjones");
+        register.setCardId("r7jTG7dqBy5wGO4L");
         when(personRepository.findByUsername("jjones")).thenReturn(Optional.of(personEntity));
         registerService.registerForAccount(register);
     }
@@ -67,16 +67,18 @@ public class PersonServiceTest
     @Test
     public void registerForAccountSuccess() {
         Register register = new Register();
+        register.setUniqueEmployeeId(Long.valueOf(123));
         register.setFirstName("Jacob");
         register.setLastName("Jones");
         register.setDateOfBirth(LocalDateTime.parse("2000-08-02T00:29:53.949"));
         register.setTitle("Mr");
         register.setEmail("jacob.jones@esure.com");
+        register.setMobileNumber("01234567890");
         register.setSex("male");
         register.setMaritalStatus("Single");
         register.setOccupation("Software Engineer");
-        register.setUserName("jjones");
-        register.setPassword("password");
+        register.setCardId("r7jTG7dqBy5wGO4L");
+        register.setPin("1234");
         
         ArgumentCaptor<PersonEntity> personCaptor = ArgumentCaptor.forClass(PersonEntity.class);
         
@@ -86,10 +88,12 @@ public class PersonServiceTest
         verify(personRepository).saveAndFlush(personCaptor.capture());
         assertThat(user.getUserName()).isEqualTo("jjones");
         assertThat(personCaptor.getValue())
+            .hasFieldOrPropertyWithValue("uniqueEmployeeId", Long.valueOf(123))
             .hasFieldOrPropertyWithValue("firstName", "Jacob")
             .hasFieldOrPropertyWithValue("lastName", "Jones")
             .hasFieldOrPropertyWithValue("title", "Mr")
             .hasFieldOrPropertyWithValue("email", "jacob.jones@esure.com")
+            .hasFieldOrPropertyWithValue("mobileNumber", "01234567890")
             .hasFieldOrPropertyWithValue("sex", "male")
             .hasFieldOrPropertyWithValue("maritalStatus", "Single")
             .hasFieldOrPropertyWithValue("occupation", "Software Engineer")

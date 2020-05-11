@@ -19,6 +19,7 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import com.membership.system.security.JwtSecurityConfigurer;
 import com.membership.system.security.JwtTokenProvider;
 
+@SuppressWarnings("deprecation")
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
@@ -27,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     
     @Bean
     @Override
-    public AuthenticationManager authenticationManager() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
     
