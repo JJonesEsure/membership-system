@@ -60,7 +60,7 @@ public class PersonServiceTest
         personEntity.setPersonId(1L);
         Register register = new Register();
         register.setCardId("r7jTG7dqBy5wGO4L");
-        when(personRepository.findByUsername("jjones")).thenReturn(Optional.of(personEntity));
+        when(personRepository.findByUsername("r7jTG7dqBy5wGO4L")).thenReturn(Optional.of(personEntity));
         registerService.registerForAccount(register);
     }
     
@@ -82,11 +82,11 @@ public class PersonServiceTest
         
         ArgumentCaptor<PersonEntity> personCaptor = ArgumentCaptor.forClass(PersonEntity.class);
         
-        when(personRepository.findByUsername("jjones")).thenReturn(Optional.empty());
-        when(authenticatedUserFactory.create(personCaptor.capture())).thenReturn(new AuthenticatedUser().setUserName("jjones"));
+        when(personRepository.findByUsername("r7jTG7dqBy5wGO4L")).thenReturn(Optional.empty());
+        when(authenticatedUserFactory.create(personCaptor.capture())).thenReturn(new AuthenticatedUser().setUserName("r7jTG7dqBy5wGO4L"));
         AuthenticatedUser user = registerService.registerForAccount(register);
         verify(personRepository).saveAndFlush(personCaptor.capture());
-        assertThat(user.getUserName()).isEqualTo("jjones");
+        assertThat(user.getUserName()).isEqualTo("r7jTG7dqBy5wGO4L");
         assertThat(personCaptor.getValue())
             .hasFieldOrPropertyWithValue("uniqueEmployeeId", Long.valueOf(123))
             .hasFieldOrPropertyWithValue("firstName", "Jacob")
@@ -97,6 +97,6 @@ public class PersonServiceTest
             .hasFieldOrPropertyWithValue("sex", "male")
             .hasFieldOrPropertyWithValue("maritalStatus", "Single")
             .hasFieldOrPropertyWithValue("occupation", "Software Engineer")
-            .hasFieldOrPropertyWithValue("username", "jjones");
+            .hasFieldOrPropertyWithValue("username", "r7jTG7dqBy5wGO4L");
     }
 }
